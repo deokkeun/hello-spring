@@ -8,8 +8,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class MemberService { // 서비스는 비즈니스에 의존적
+    // command + shift + t (Create New Test)
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    // DI(Dependency Injection)
+    // 외부에서 객체 간의 관계(의존성)을 결정해 주는데 즉,
+    // 객체를 직접 생성하는 것이 아니라 외부에서 생성후 주입시켜 주는 방식
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원가입
@@ -26,7 +34,7 @@ public class MemberService { // 서비스는 비즈니스에 의존적
     private void validateDuplicateMember(Member member) {
         memberRepository.findByName(member.getName())
                 .ifPresent(m -> { // ifPresent() 값이 있으면 (Optional 때문에 사용 가능)
-                        throw new IllegalArgumentException("이미 존재하는 회원 입니다.");
+                        throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
     }
 
