@@ -1,11 +1,13 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
+    // 아직 데이터 저장소가 선정되지 않았다는 가상의 시나리오 떄문에 인터페이스와 구현체를 따로 만듦
     Member save(Member member);
 
     // Optional<T>
